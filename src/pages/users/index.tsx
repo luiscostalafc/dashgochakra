@@ -1,10 +1,16 @@
 import * as ChakraIU from "@chakra-ui/react";
+import { useBreakpointValue } from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 
 export default function UserList() {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
+
   return (
     <ChakraIU.Box>
       <Header />
@@ -30,17 +36,17 @@ export default function UserList() {
           <ChakraIU.Table colorScheme="whiteAlpha">
             <ChakraIU.Thead>
               <ChakraIU.Tr>
-                <ChakraIU.Th px="6" color="gray.300" width="8">
+                <ChakraIU.Th px={["4", "4", "6"]} color="gray.300" width="8">
                   <ChakraIU.Checkbox colorScheme="pink" />
                 </ChakraIU.Th>
                 <ChakraIU.Th>Usuário</ChakraIU.Th>
-                <ChakraIU.Th>Data de cadastro</ChakraIU.Th>
+                {isWideVersion && <ChakraIU.Th>Data de cadastro</ChakraIU.Th>}
                 <ChakraIU.Th width="8"></ChakraIU.Th>
               </ChakraIU.Tr>
             </ChakraIU.Thead>
             <ChakraIU.Tbody>
               <ChakraIU.Tr>
-                <ChakraIU.Td px="6">
+                <ChakraIU.Td px={["4", "4", "6"]}>
                   <ChakraIU.Checkbox colorScheme="pink" />
                 </ChakraIU.Td>
                 <ChakraIU.Td>
@@ -51,7 +57,7 @@ export default function UserList() {
                     </ChakraIU.Text>
                   </ChakraIU.Box>
                 </ChakraIU.Td>
-                <ChakraIU.Td>02 de Abril, 2022</ChakraIU.Td>
+                {isWideVersion && <ChakraIU.Td>02 de Abril, 2022</ChakraIU.Td>}
                 <ChakraIU.Td>
                   <ChakraIU.Button
                     as="a"
@@ -65,7 +71,7 @@ export default function UserList() {
                 </ChakraIU.Td>
               </ChakraIU.Tr>
               <ChakraIU.Tr>
-                <ChakraIU.Td px="6">
+                <ChakraIU.Td px={["4", "4", "6"]}>
                   <ChakraIU.Checkbox colorScheme="pink" />
                 </ChakraIU.Td>
                 <ChakraIU.Td>
@@ -76,7 +82,7 @@ export default function UserList() {
                     </ChakraIU.Text>
                   </ChakraIU.Box>
                 </ChakraIU.Td>
-                <ChakraIU.Td>02 de Abril, 2022</ChakraIU.Td>
+                {isWideVersion && <ChakraIU.Td>02 de Abril, 2022</ChakraIU.Td>}
                 <ChakraIU.Td>
                   <ChakraIU.Button
                     as="a"
@@ -90,7 +96,7 @@ export default function UserList() {
                 </ChakraIU.Td>
               </ChakraIU.Tr>
               <ChakraIU.Tr>
-                <ChakraIU.Td px="6">
+                <ChakraIU.Td px={["4", "4", "6"]}>
                   <ChakraIU.Checkbox colorScheme="pink" />
                 </ChakraIU.Td>
                 <ChakraIU.Td>
@@ -101,7 +107,7 @@ export default function UserList() {
                     </ChakraIU.Text>
                   </ChakraIU.Box>
                 </ChakraIU.Td>
-                <ChakraIU.Td>02 de Abril, 2022</ChakraIU.Td>
+                {isWideVersion && <ChakraIU.Td>02 de Abril, 2022</ChakraIU.Td>}
                 <ChakraIU.Td>
                   <ChakraIU.Button
                     as="a"
