@@ -1,18 +1,4 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  Flex,
-  Heading,
-  Icon,
-  Table,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import * as ChakraIU from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
@@ -20,119 +6,119 @@ import { Sidebar } from "../../components/Sidebar";
 
 export default function UserList() {
   return (
-    <Box>
+    <ChakraIU.Box>
       <Header />
-      <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+      <ChakraIU.Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
         <Sidebar />
 
-        <Box flex="1" borderRadius={8} bg="gray.800" p="8">
-          <Flex mb="8" justify="space-between" align="center">
-            <Heading size="lg" fontWeight="normal">
+        <ChakraIU.Box flex="1" borderRadius={8} bg="gray.800" p="8">
+          <ChakraIU.Flex mb="8" justify="space-between" align="center">
+            <ChakraIU.Heading size="lg" fontWeight="normal">
               Usuários
-            </Heading>
+            </ChakraIU.Heading>
 
-            <Button
+            <ChakraIU.Button
               as="a"
               size="sm"
               fontSize="sm"
               colorScheme="pink"
-              leftIcon={<Icon as={RiAddLine} fontSize="20" />}
+              leftIcon={<ChakraIU.Icon as={RiAddLine} fontSize="20" />}
             >
               Criar novo
-            </Button>
-          </Flex>
-          <Table colorScheme="whiteAlpha">
-            <Thead>
-              <Tr>
-                <Th px="6" color="gray.300" width="8">
-                  <Checkbox colorScheme="pink" />
-                </Th>
-                <Th>Usuário</Th>
-                <Th>Data de cadastro</Th>
-                <Th width="8"></Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td px="6">
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Luis Costa</Text>
-                    <Text fontSize="sm" color="gray.300">
+            </ChakraIU.Button>
+          </ChakraIU.Flex>
+          <ChakraIU.Table colorScheme="whiteAlpha">
+            <ChakraIU.Thead>
+              <ChakraIU.Tr>
+                <ChakraIU.Th px="6" color="gray.300" width="8">
+                  <ChakraIU.Checkbox colorScheme="pink" />
+                </ChakraIU.Th>
+                <ChakraIU.Th>Usuário</ChakraIU.Th>
+                <ChakraIU.Th>Data de cadastro</ChakraIU.Th>
+                <ChakraIU.Th width="8"></ChakraIU.Th>
+              </ChakraIU.Tr>
+            </ChakraIU.Thead>
+            <ChakraIU.Tbody>
+              <ChakraIU.Tr>
+                <ChakraIU.Td px="6">
+                  <ChakraIU.Checkbox colorScheme="pink" />
+                </ChakraIU.Td>
+                <ChakraIU.Td>
+                  <ChakraIU.Box>
+                    <ChakraIU.Text fontWeight="bold">Luis Costa</ChakraIU.Text>
+                    <ChakraIU.Text fontSize="sm" color="gray.300">
                       luiscostalafc@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                <Td>02 de Abril, 2022</Td>
-                <Td>
-                  <Button
+                    </ChakraIU.Text>
+                  </ChakraIU.Box>
+                </ChakraIU.Td>
+                <ChakraIU.Td>02 de Abril, 2022</ChakraIU.Td>
+                <ChakraIU.Td>
+                  <ChakraIU.Button
                     as="a"
                     size="sm"
                     fontSize="sm"
                     colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                    leftIcon={<ChakraIU.Icon as={RiPencilLine} fontSize="16" />}
                   >
                     Editar
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td px="6">
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Luis Costa</Text>
-                    <Text fontSize="sm" color="gray.300">
+                  </ChakraIU.Button>
+                </ChakraIU.Td>
+              </ChakraIU.Tr>
+              <ChakraIU.Tr>
+                <ChakraIU.Td px="6">
+                  <ChakraIU.Checkbox colorScheme="pink" />
+                </ChakraIU.Td>
+                <ChakraIU.Td>
+                  <ChakraIU.Box>
+                    <ChakraIU.Text fontWeight="bold">Luis Costa</ChakraIU.Text>
+                    <ChakraIU.Text fontSize="sm" color="gray.300">
                       luiscostalafc@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                <Td>02 de Abril, 2022</Td>
-                <Td>
-                  <Button
+                    </ChakraIU.Text>
+                  </ChakraIU.Box>
+                </ChakraIU.Td>
+                <ChakraIU.Td>02 de Abril, 2022</ChakraIU.Td>
+                <ChakraIU.Td>
+                  <ChakraIU.Button
                     as="a"
                     size="sm"
                     fontSize="sm"
                     colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                    leftIcon={<ChakraIU.Icon as={RiPencilLine} fontSize="16" />}
                   >
                     Editar
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td px="6">
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Luis Costa</Text>
-                    <Text fontSize="sm" color="gray.300">
+                  </ChakraIU.Button>
+                </ChakraIU.Td>
+              </ChakraIU.Tr>
+              <ChakraIU.Tr>
+                <ChakraIU.Td px="6">
+                  <ChakraIU.Checkbox colorScheme="pink" />
+                </ChakraIU.Td>
+                <ChakraIU.Td>
+                  <ChakraIU.Box>
+                    <ChakraIU.Text fontWeight="bold">Luis Costa</ChakraIU.Text>
+                    <ChakraIU.Text fontSize="sm" color="gray.300">
                       luiscostalafc@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                <Td>02 de Abril, 2022</Td>
-                <Td>
-                  <Button
+                    </ChakraIU.Text>
+                  </ChakraIU.Box>
+                </ChakraIU.Td>
+                <ChakraIU.Td>02 de Abril, 2022</ChakraIU.Td>
+                <ChakraIU.Td>
+                  <ChakraIU.Button
                     as="a"
                     size="sm"
                     fontSize="sm"
                     colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                    leftIcon={<ChakraIU.Icon as={RiPencilLine} fontSize="16" />}
                   >
                     Editar
-                  </Button>
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
+                  </ChakraIU.Button>
+                </ChakraIU.Td>
+              </ChakraIU.Tr>
+            </ChakraIU.Tbody>
+          </ChakraIU.Table>
           <Pagination />
-        </Box>
-      </Flex>
-    </Box>
+        </ChakraIU.Box>
+      </ChakraIU.Flex>
+    </ChakraIU.Box>
   );
 }
