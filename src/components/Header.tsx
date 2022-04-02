@@ -31,9 +31,9 @@ export function Header() {
         px="8"
         ml="6"
         maxWidth={400}
-        alignSelf="center"
+        //alignSelf="center"
         color="gray.200"
-        position="relative"
+        //position="relative"
         bg="gray.800"
         borderRadius="full"
       >
