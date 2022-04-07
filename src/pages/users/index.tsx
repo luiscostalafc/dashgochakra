@@ -1,40 +1,17 @@
 import * as ChakraIU from "@chakra-ui/react";
 import { Flex, Spinner, Text, useBreakpointValue } from "@chakra-ui/react";
 import Link from "next/link";
+import { Fragment, useState } from "react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
-import { useQuery } from "react-query";
 
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
+import { useUsers } from "../../hooks/useUsers";
 
 export default function UserList() {
-  const { data, isLoading, error } = useQuery(
-    "users",
-    async () => {
-      const response = await fetch("http://localhost:3000/api/users");
-      const data = await response.json();
-
-      const users = data.users.map((user) => {
-        return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          createdAt: new Date(user.createdAt).toLocaleDateString("pt-BR", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-          }),
-        };
-      });
-
-      return users;
-    },
-    {
-      staleTime: 1000 * 5, // 5 segundos
-    }
-  );
-
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isFetching, error } = useUsers(page);
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -58,6 +35,9 @@ export default function UserList() {
           <ChakraIU.Flex mb="8" justify="space-between" align="center">
             <ChakraIU.Heading size="lg" fontWeight="normal">
               Usuários
+              {!isLoading && isFetching && (
+                <Spinner size="sm" color="gray.500" ml="4" />
+              )}
             </ChakraIU.Heading>
 
             <Link href="/users/create" passHref>
@@ -96,9 +76,9 @@ export default function UserList() {
                   </ChakraIU.Tr>
                 </ChakraIU.Thead>
                 <ChakraIU.Tbody>
-                  {data.map((user) => {
+                  {data.users.map((user) => {
                     return (
-                      <>
+                      <Fragment key={user.id}>
                         <ChakraIU.Tr>
                           <ChakraIU.Td px={["4", "4", "6"]}>
                             <ChakraIU.Checkbox colorScheme="pink" />
@@ -133,12 +113,16 @@ export default function UserList() {
                             </ChakraIU.Button>
                           </ChakraIU.Td>
                         </ChakraIU.Tr>
-                      </>
+                      </Fragment>
                     );
                   })}
                 </ChakraIU.Tbody>
               </ChakraIU.Table>
-              <Pagination />
+              <Pagination
+                totalCountOfRegisters={data.totalCount}
+                currentPage={page}
+                onPageChange={setPage}
+              />
             </>
           )}
         </ChakraIU.Box>
