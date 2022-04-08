@@ -1,5 +1,11 @@
 import * as ChakraIU from "@chakra-ui/react";
-import { Flex, Spinner, Text, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Flex,
+  Spinner,
+  Text,
+  useBreakpointValue,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
@@ -8,6 +14,8 @@ import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 import { useUsers } from "../../hooks/useUsers";
+import { api } from "../../services/api";
+import { queryClient } from "../../services/queryClient";
 
 export default function UserList() {
   const [page, setPage] = useState(1);
@@ -22,6 +30,20 @@ export default function UserList() {
       <Flex justify="center">
         <Text>Houve algum erro em buscar os dados</Text>
       </Flex>
+    );
+  }
+
+  async function handlePrefetchUser(userId: string) {
+    await queryClient.prefetchQuery(
+      ["user", userId],
+      async () => {
+        const response = await api.get(`users/${userId}`);
+
+        return response.data;
+      },
+      {
+        staleTime: 1000 * 60 * 10, // 10 minutes
+      }
     );
   }
 
@@ -85,9 +107,15 @@ export default function UserList() {
                           </ChakraIU.Td>
                           <ChakraIU.Td>
                             <ChakraIU.Box>
-                              <ChakraIU.Text fontWeight="bold">
-                                {user.name}
-                              </ChakraIU.Text>
+                              <ChakraLink
+                                color="purple.400"
+                                onMouseEnter={() => handlePrefetchUser(user.id)}
+                              >
+                                <ChakraIU.Text fontWeight="bold">
+                                  {user.name}
+                                </ChakraIU.Text>
+                              </ChakraLink>
+
                               <ChakraIU.Text fontSize="sm" color="gray.300">
                                 {user.email}
                               </ChakraIU.Text>

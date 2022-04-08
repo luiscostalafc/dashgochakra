@@ -1,17 +1,12 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Heading,
-  HStack,
-  SimpleGrid,
-  VStack,
-} from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import * as ChakraComponent from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { api } from "../../services/api";
+import { queryClient } from "../../services/queryClient";
+import { useMutation } from "react-query";
 
 import { Input } from "../../components/Form/Input";
 import { Header } from "../../components/Header";
@@ -37,6 +32,26 @@ const createUserFormSchema = yup.object().shape({
 });
 
 export default function CreateUser() {
+  const router = useRouter();
+
+  const createUser = useMutation(
+    async (user: CreateUserFormData) => {
+      const { data } = await api.post("users", {
+        user: {
+          ...user,
+          created_at: new Date(),
+        },
+      });
+
+      return data.user;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("users");
+      },
+    }
+  );
+
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(createUserFormSchema),
   });
@@ -45,17 +60,18 @@ export default function CreateUser() {
   const handleCreateUser: SubmitHandler<CreateUserFormData> = async (
     values
   ) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(values);
+    await createUser.mutateAsync(values);
+
+    router.push("/users");
   };
 
   return (
-    <Box>
+    <ChakraComponent.Box>
       <Header />
-      <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+      <ChakraComponent.Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
         <Sidebar />
 
-        <Box
+        <ChakraComponent.Box
           flex="1"
           borderRadius={8}
           bg="gray.800"
@@ -63,13 +79,17 @@ export default function CreateUser() {
           as="form"
           onSubmit={handleSubmit(handleCreateUser)}
         >
-          <Heading size="lg" fontWeight="normal">
+          <ChakraComponent.Heading size="lg" fontWeight="normal">
             Criar usuários
-          </Heading>
-          <Divider my="6" borderColor="gray.700" />
+          </ChakraComponent.Heading>
+          <ChakraComponent.Divider my="6" borderColor="gray.700" />
 
-          <VStack spacing={["6", "8"]}>
-            <SimpleGrid minChildWidth="240px" spacing={["6", "8"]} w="100%">
+          <ChakraComponent.VStack spacing={["6", "8"]}>
+            <ChakraComponent.SimpleGrid
+              minChildWidth="240px"
+              spacing={["6", "8"]}
+              w="100%"
+            >
               <Input
                 name="name"
                 label="Nome completo"
@@ -83,9 +103,13 @@ export default function CreateUser() {
                 error={errors.email}
                 {...register("email")}
               />
-            </SimpleGrid>
+            </ChakraComponent.SimpleGrid>
 
-            <SimpleGrid minChildWidth="240px" spacing={["6", "8"]} w="100%">
+            <ChakraComponent.SimpleGrid
+              minChildWidth="240px"
+              spacing={["6", "8"]}
+              w="100%"
+            >
               <Input
                 name="password"
                 type="password"
@@ -100,22 +124,26 @@ export default function CreateUser() {
                 error={errors.password_confirmation}
                 {...register("password_confirmation")}
               />
-            </SimpleGrid>
-          </VStack>
-          <Flex mt="8" justify={["center", "flex-end"]}>
-            <HStack spacing={["16", "4"]}>
+            </ChakraComponent.SimpleGrid>
+          </ChakraComponent.VStack>
+          <ChakraComponent.Flex mt="8" justify={["center", "flex-end"]}>
+            <ChakraComponent.HStack spacing={["16", "4"]}>
               <Link href="/users" passHref>
-                <Button as="a" colorScheme="whiteAlpha">
+                <ChakraComponent.Button as="a" colorScheme="whiteAlpha">
                   Cancelar
-                </Button>
+                </ChakraComponent.Button>
               </Link>
-              <Button type="submit" isLoading={isSubmitting} colorScheme="pink">
+              <ChakraComponent.Button
+                type="submit"
+                isLoading={isSubmitting}
+                colorScheme="pink"
+              >
                 Salvar
-              </Button>
-            </HStack>
-          </Flex>
-        </Box>
-      </Flex>
-    </Box>
+              </ChakraComponent.Button>
+            </ChakraComponent.HStack>
+          </ChakraComponent.Flex>
+        </ChakraComponent.Box>
+      </ChakraComponent.Flex>
+    </ChakraComponent.Box>
   );
 }
